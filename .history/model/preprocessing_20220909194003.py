@@ -60,7 +60,7 @@ def select_user_journey():
     upload = c1.file_uploader("Upload Dataframe", type=["csv"])
 
     if (upload is not None):
-        data = pd.read_csv(upload, encoding= 'unicode_escape').iloc[: , 1:]
+        data = pd.pd.read_csv(upload, encoding= 'unicode_escape').iloc[: , 1:]
         if (data is not None):
            return data
 

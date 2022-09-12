@@ -1,10 +1,15 @@
 # Dependencies
 import streamlit as st
 import home
+import research_page
+import videos_page
+import model.mdp_solver as genSolver
 import model.preprocessing as prepProcess
 import model.states as custSegm
-import model.clustering as clustering
 import model.transitions_probabilities as custDyn
+import model.mcp_solver as solveCamp
+import model_dependencies.google_sheet as db
+import model.rewards as car
 
 st.set_page_config(
      page_title="Ex-stream-ly Cool App",
@@ -26,7 +31,7 @@ class Router:
 
     # Router attributes
     def display_router(self):
-        self.features = ['Home Page', 'Preprocessing', '1. States', 'Clustering']
+        self.features = ['Home Page', 'Preprocessing', '1. States']
         self.page = st.sidebar.selectbox('Select Page', self.features)
         st.sidebar.markdown('---')
 
@@ -44,9 +49,6 @@ class Router:
         # CUSTOMER SEGMENTATION
         if self.page == self.features[2]:
             custSegm.display_customer_segmentation()
-
-        if self.page == self.features[3]:
-            clustering.display_clustering()
             
 # Initiating class
 route = Router()

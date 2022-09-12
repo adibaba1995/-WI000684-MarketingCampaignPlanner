@@ -1,10 +1,15 @@
 # Dependencies
 import streamlit as st
 import home
+import research_page
+import videos_page
+import model.mdp_solver as genSolver
 import model.preprocessing as prepProcess
 import model.states as custSegm
-import model.clustering as clustering
 import model.transitions_probabilities as custDyn
+import model.mcp_solver as solveCamp
+import model_dependencies.google_sheet as db
+import model.rewards as car
 
 st.set_page_config(
      page_title="Ex-stream-ly Cool App",
@@ -26,7 +31,7 @@ class Router:
 
     # Router attributes
     def display_router(self):
-        self.features = ['Home Page', 'Preprocessing', '1. States', 'Clustering']
+        self.features = ['Home Page', 'Preprocessing', '1. States', '2. Transitional Probabilities', '3. Transitional Rewards', '4. MDP Solver', '5. Marketing Campaign Planner', 'Simulation History', 'Documentation', 'Videos']
         self.page = st.sidebar.selectbox('Select Page', self.features)
         st.sidebar.markdown('---')
 
@@ -45,8 +50,33 @@ class Router:
         if self.page == self.features[2]:
             custSegm.display_customer_segmentation()
 
+        # CUSTOMER DYNAMICS
         if self.page == self.features[3]:
-            clustering.display_clustering()
+            custDyn.display_customer_dynammics()
+
+        # REWARDS
+        if self.page == self.features[4]:
+            car.display_input_rewards_actions()
+
+        # MDP SOLVER PAGE
+        if self.page == self.features[5]:
+            genSolver.solver()
+
+        # CAMPAIGN PLANNER PAGE
+        if self.page == self.features[6]:
+            solveCamp.display_campaing_planner_page()
+            
+        # SIMULATION HISTORY PAGE
+        if self.page == self.features[7]:
+            db.display_simulation_history()
+
+         # DOCUMENTATION PAGE
+        if self.page == self.features[8]:
+            research_page.display_research_page()
+
+        # VIDEOS PAGE
+        if self.page == self.features[9]:
+            videos_page.display_video_page()
             
 # Initiating class
 route = Router()
